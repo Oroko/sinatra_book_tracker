@@ -2,10 +2,10 @@
 
 class UsersController < ApplicationController
   # GET: /users
-  get '/users' do
-    @user = User.find(session[:user_id])
-    erb :"/users/index.html"
-  end
+  # get '/users' do
+  #   @user = User.find(session[:user_id])
+  #   erb :"/books"
+  # end
 
   # GET: /users/new
   get '/signup' do
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       password: params['password']
     )
     session[:user_id] = @user.id
-    redirect '/users'
+    redirect '/books'
   end
 
   # GET: /users/5
