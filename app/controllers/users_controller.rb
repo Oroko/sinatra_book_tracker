@@ -14,14 +14,19 @@ class UsersController < ApplicationController
 
   # POST: /users
   post '/signup' do
-    
+    # if params[:username] == '' || params[:email] == '' || params[:password]
     @user = User.create(
       username: params['username'],
       email: params['email'],
       password: params['password']
     )
-    session[:user_id] = @user.id
-    redirect '/books'
+    if @user.valid?
+      session[:user_id] = @user.id
+      redirect '/books'
+    else
+      redirect '/'
+
+    end
   end
 
   # GET: /users/5
