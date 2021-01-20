@@ -3,6 +3,7 @@
 class BooksController < ApplicationController
   # GET: /books
   get '/books' do
+    @books = current_user.books
     
     erb :"/books/index.html"
   end
@@ -14,6 +15,9 @@ class BooksController < ApplicationController
 
   # POST: /books
   post '/books' do
+    @books = current_user.books.build(params)
+    @books.save
+    
     redirect '/books'
   end
 
