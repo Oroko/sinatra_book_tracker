@@ -1,1 +1,33 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<h1>Here is your book!</h1>
+<table class="table table-stripped">
+  <tr>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Genre</th>
+    <th>Status</th>
+    <th>pages</th>
+    <th>created_at</th>
+  </tr>
+  <tr>
+    <td><%= @book.title %></td>
+    <td><%= @book.author %></td>
+    <td><%= @book.genre %></td>
+    <td><%= @book.status %></td>
+    <td><%= @book.pages %></td>
+    <td><%= @book.created_at %></td>
+    <td>
+       <a class="btn btn-success " href="/books/<%= @book.id %>/edit">Edit</a>
+    </td>
+  </tr>
+</table><br/>
+
+
+
+<a class="btn btn-primary col-md-2 mb-3" href="/books">Go Home</a><br/>
+<form action="/books/<%= @book.id%>/delete" method="post">
+<input id="hidden" type="hidden" name="_method" value="delete">
+  
+  <input class="btn btn-danger col-md-2 mb-3" type="submit" value="Delete">
+
+</form>
+
