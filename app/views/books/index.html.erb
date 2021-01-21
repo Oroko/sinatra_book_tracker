@@ -1,7 +1,37 @@
-<% if Helpers.logged_in?(session) %>
-      <h1>Welcome <%= Helpers.current_user(session).username %></h1>
-      
-      <a href='/logout'>Log Out</a>
+<% if logged_in? %>
+      <h1>Welcome <%= current_user.username %></h1>
+      <h2>Click to Check out your Books</h2>
+      <div class="btn-container">
+       <a class="btn btn-primary col-md-3 mb-3"href="/books/filter/Reading" class="btn">Reading</a>
+       <a class="btn btn-success col-md-3 mb-3"href="/books/filter/Wishlist" class="btn">Wishlist</a>
+       <a class="btn btn-danger col-md-3 mb-3"href="/books/filter/Completed"class="btn">Completed</a>
+      </div>
+      <table class="table table-stripped">
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Status</th>
+          <th>Action</th>
+         
+        </tr>
+       
+          <% @books.each do |book|%>
+           <tr>
+             <td><%= book.title%></td>
+             <td><%= book.author%></td>
+             <td><%= book.status%></td>
+             <td>
+               <a class="btn btn-primary" href="/books/<%= book.id %>/edit">Edit</a>
+               <a class="btn btn-success" href="/books/<%= book.id %>">View</a>
+             </td>
+           </tr>
+             
+           <% end %>
+       
+      </table>
+     
+      <a class="btn btn-primary col-md-2 mb-3" href="/books/new">Add a Book</a>
+      <a class="btn btn-success col-md-2 mb-3 " href='/logout'>Log Out</a>
     <% else %>
       <h1>Sinatra Book Tracker App</h1> 
       <p>It seems there was a problem. Please return to <a href="/">the home page</a> and try again.</p>
