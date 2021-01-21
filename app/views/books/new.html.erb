@@ -1,1 +1,33 @@
-<h1>Insert the form to create a new instance of your model.</h1>
+<h1>Add a Book!</h1>
+
+<form action="/books" method="post">
+  <div class="form-group" class="col-md-4 mb-3">
+    <label for="author">Author: </label> 
+    <input class="form-control" type="text" id="author" name="author"><br/>
+  </div>
+  <div class="form-group">
+    <label for="title">Title: </label> 
+    <input class="form-control" type="text" id="title" name="title"><br/>
+  </div>
+  <div class="form-group">
+    <label for="genre">Genre: </label> 
+    <input class="form-control" type="text" id="genre" name="genre"><br/>
+  </div>
+  <div class="form-group">
+    <label for="pages">Pages: </label> 
+    <input class="form-control" type="number" id="pages" name="pages" min=0 ><br/>
+  </div>
+  <div class="input-group ">
+  <div class="input-group-prepend">
+  <label for="status" class="input-group-text">Status: </label>
+  </div>
+  <select class="custom-select" name="status" id="status">
+    
+    <option name="reading">Reading</option>
+    <option name="wishlist">Wishlist</option>
+    <option name="completed">Completed</option>
+    
+  </select>
+  </div><br/>
+  <input class="btn btn-primary"type="submit" value="submit">
+</form>
