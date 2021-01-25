@@ -3,14 +3,18 @@
 class BooksController < ApplicationController
   # GET: /books
   get '/books' do
-    @books = current_user.books
+    if logged_in?
+      @books = current_user.books
+      
+      erb :"/books/index.html"
+    else
+      redirect '/login'
 
-    erb :"/books/index.html"
-  end 
+    end
+  end
 
   get '/books/filter/:status' do
-    @books = current_user.books.where(status: params[:status]) 
-    
+    @books = current_user.books.filter_status(params)
 
     erb :"/books/index.html"
   end
@@ -23,10 +27,15 @@ class BooksController < ApplicationController
   # POST: /books
   post '/books' do
     @books = current_user.books.build(params)
+    if @books.valid?
 
-    @books.save
+      @books.save
 
-    redirect '/books'
+      redirect '/books'
+    else
+      flash[:missing] = 'You are missing some book details!'
+      redirect '/books/new'
+    end
   end
 
   # GET: /books/5
@@ -45,14 +54,15 @@ class BooksController < ApplicationController
 
   # PATCH: /books/5
   patch '/books/:id' do
-   
     @book = current_user.books.find(params[:id])
-    @book.title = params[:title]
-    @book.author = params[:author]
-    @book.genre = params[:genre]
-    @book.status = params[:status]
-    @book.pages = params[:pages]
-    @book.save
+    @book.update(
+      title: params[:title],
+      author: params[:author],
+      genre: params[:genre],
+      status: params[:status],
+      pages: params[:pages]
+    )
+
     redirect "/books/#{params[:id]}"
   end
 
