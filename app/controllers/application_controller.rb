@@ -5,6 +5,7 @@ require './config/environment'
 class ApplicationController < Sinatra::Base
   configure do
     enable :sessions
+    register Sinatra::Flash
     set :public_folder, 'public'
     set :views, 'app/views'
     set :session_secret, 'my_secret'
@@ -15,20 +16,23 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/login' do
-    erb :'/users/login.html'
+    
+      erb :'/users/login.html'
+    
   end
 
   post '/login' do
     @user = User.find_by(
       email: params['email']
     )
-
     if @user&.authenticate(params[:password])
+
       session[:user_id] = @user.id
 
       redirect '/books'
     else
-      redirect '/'
+      flash[:danger] = 'Invalid email/password combination'
+      redirect '/login'
 
     end
   end
@@ -37,6 +41,7 @@ class ApplicationController < Sinatra::Base
     session.clear
     redirect '/'
   end
+
   helpers do
     def current_user
       @user ||= User.find(session[:user_id]) if session[:user_id]
