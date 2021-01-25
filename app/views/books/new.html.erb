@@ -1,4 +1,4 @@
-<h1>Add a Book!</h1>
+<h1 class="display-4">Add a Book!</h1>
 
 <form action="/books" method="post">
   <div class="form-group" class="col-md-4 mb-3">
@@ -21,6 +21,8 @@
   <div class="input-group-prepend">
   <label for="status" class="input-group-text">Status: </label>
   </div>
+  
+  <div class="flash message"><%= flash[:message] %></div>
   <select class="custom-select" name="status" id="status">
     
     <option name="reading">Reading</option>
@@ -29,5 +31,6 @@
     
   </select>
   </div><br/>
-  <input class="btn btn-primary"type="submit" value="submit">
+  <input class="btn btn-primary col-md-2 mb-3 " type="submit" value="submit">
+  <a class="btn btn-success col-md-2 mb-3 " href="/books">Go Home</a>
 </form>

@@ -1,6 +1,6 @@
-<% if logged_in? %>
-      <h1>Welcome <%= current_user.username %></h1>
-      <h2>Click to Check out your Books</h2>
+
+      <h1 class="display-1">Welcome <%= current_user.username %></h1>
+      <h2 class="h3">Click to Check out your Books</h2>
       <div class="btn-container">
        <a class="btn btn-primary col-md-3 mb-3"href="/books/filter/Reading" class="btn">Reading</a>
        <a class="btn btn-success col-md-3 mb-3"href="/books/filter/Wishlist" class="btn">Wishlist</a>
@@ -8,15 +8,17 @@
       </div>
       <table class="table table-stripped">
         <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Status</th>
-          <th>Action</th>
+          
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
          
         </tr>
        
-          <% @books.each do |book|%>
+          <% @books.each_with_index do |book, index|%>
            <tr>
+              <th scope="row"><%= index + 1 %></th>
              <td><%= book.title%></td>
              <td><%= book.author%></td>
              <td><%= book.status%></td>
@@ -32,9 +34,6 @@
      
       <a class="btn btn-primary col-md-2 mb-3" href="/books/new">Add a Book</a>
       <a class="btn btn-success col-md-2 mb-3 " href='/logout'>Log Out</a>
-    <% else %>
-      <h1>Sinatra Book Tracker App</h1> 
-      <p>It seems there was a problem. Please return to <a href="/">the home page</a> and try again.</p>
-  <%end%>
+  
 
 
