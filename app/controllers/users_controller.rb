@@ -15,7 +15,12 @@ class UsersController < ApplicationController
   # POST: /users
   post '/signup' do
     # if params[:username] == '' || params[:email] == '' || params[:password]
-    @user = User.create(
+    # @user = User.find_by(email: params[:email])
+    # if @user
+    #   flash[:message] = 'User already exists!'
+    #   redirect '/login'
+    # end
+    @user = User.create!(
       username: params['username'],
       email: params['email'],
       password: params['password']
