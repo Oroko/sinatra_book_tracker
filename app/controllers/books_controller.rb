@@ -25,6 +25,11 @@ class BooksController < ApplicationController
   # POST: /books
   post '/books' do
     redirect_if_not_logged_in
+    @books = current_user.books.find_by(author: params[:author], title: params[:title])
+    if @books
+      flash[:warning] = 'Book already exist'
+      redirect '/books/new'
+    end
     @books = current_user.books.build(params)
     if @books.valid?
 
